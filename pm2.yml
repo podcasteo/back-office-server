@@ -1,0 +1,10 @@
+apps:
+  - script: ./src/index.js
+    name: 'back-office-server'
+    ignore_watch :
+      - 'node_modules'
+      - 'build'
+      - 'documentation'
+    watch:
+      - 'config'
+      - 'src'

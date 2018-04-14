@@ -1,0 +1,5 @@
+{
+  "server": {
+    "port": "BACK_OFFICE_SERVER_PORT"
+  }
+}

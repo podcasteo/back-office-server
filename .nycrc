@@ -1,0 +1,30 @@
+{
+  "check-coverage": true,
+  "per-file": true,
+  "lines": 80,
+  "statements": 80,
+  "functions": 80,
+  "branches": 80,
+  "exclude":[
+    "src/**/index.js",
+    "src/app.js",
+    "src/**/*.spec.js",
+    "src/**/*.unit.js",
+    "src/fixtures/*",
+    "src/**/fixtures/*"
+  ],
+  "include": [
+    "src/**/*.js"
+  ],
+  "reporter": [
+    "lcov",
+    "text-summary",
+    "html"
+  ],
+  "require": [
+    "babel-register"
+  ],
+  "cache": true,
+  "all": true,
+  "report-dir": "./coverage"
+}

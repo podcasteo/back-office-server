@@ -1,5 +1,8 @@
 {
   "server": {
     "port": "BACK_OFFICE_SERVER_PORT"
+  },
+  "mongo": {
+    "url": "MONGO_DATABASE_URL"
   }
 }

@@ -13,15 +13,19 @@
     "asciify": "1.3.5",
     "babel-polyfill": "6.26.0",
     "babel-register": "6.26.0",
+    "bcryptjs": "2.4.3",
     "body-parser": "1.18.2",
     "chalk": "2.3.2",
     "compression": "1.7.2",
     "config": "1.30.0",
     "debug": "3.1.0",
-    "pm2": "2.10.1",
     "express": "4.16.3",
+    "express-async-errors": "2.1.2",
     "express-query-int": "3.0.0",
-    "lodash": "4.17.5"
+    "jsonwebtoken": "8.2.1",
+    "lodash": "4.17.5",
+    "mongoose": "5.0.14",
+    "pm2": "2.10.1"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "6.1.3",
@@ -48,7 +52,7 @@
   "scripts": {
     "commitmsg": "make commitlint",
     "precommit": "make test-cs",
-    "prepush": "make test-coverage",
+    "/": "prepush: make test-coverage",
     "commit": "commit-wizard",
     "test": "make test",
     "start": "make start"

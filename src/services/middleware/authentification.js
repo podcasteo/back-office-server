@@ -1,9 +1,9 @@
 import config from 'config'
 import jwt from 'jsonwebtoken'
 
-import userClient from 'services/api/users/clients'
+import client from 'modules/users/client'
 
-export function tokenExtractor(req) {
+function tokenExtractor(req) {
   let extractToken = null
 
   if (req && req.headers.authorization) {
@@ -19,14 +19,14 @@ export function tokenExtractor(req) {
   return extractToken
 }
 
-export async function handleToken(req, res, next) {
+async function handleToken(req, res, next) {
   const token = tokenExtractor(req)
 
   return jwt.verify(token, config.get('jwt.secretKey'), async (error, decoded) => {
     let user = null
 
     if (decoded) {
-      user = await userClient.findById(decoded.id)
+      user = await client.findById(decoded.id)
     }
 
     req.user = user
@@ -35,7 +35,7 @@ export async function handleToken(req, res, next) {
   })
 }
 
-export function handleUser(req) {
+function handleUser(req) {
   if (!req.user) {
     throw new Error('UNAUTHORIZED')
   }
@@ -43,7 +43,7 @@ export function handleUser(req) {
   return req.user
 }
 
-export function handleRole(role, req) {
+function handleRole(role, req) {
   const user = handleUser(req)
   let authorize = true
 
@@ -60,4 +60,11 @@ export function handleRole(role, req) {
   if (!authorize) {
     throw new Error('NOT_ALLOW')
   }
+}
+
+export default {
+  tokenExtractor,
+  handleToken,
+  handleUser,
+  handleRole,
 }

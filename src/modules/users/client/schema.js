@@ -34,5 +34,4 @@ const schema = new Schema({
   },
 })
 
-// Export the Mongoose model
 export default mongoose.model('User', schema)

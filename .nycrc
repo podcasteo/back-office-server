@@ -6,15 +6,16 @@
   "functions": 80,
   "branches": 80,
   "exclude":[
-    "src/**/index.js",
     "src/app.js",
+    "src/**/*index.js",
     "src/**/*.spec.js",
     "src/**/*.unit.js",
-    "src/fixtures/*",
-    "src/**/fixtures/*"
+    "src/**/fixtures/*",
+    "src/services/*",
+    "src/modules/**/client/*"
   ],
   "include": [
-    "src/**/*.js"
+   "src/**"
   ],
   "reporter": [
     "lcov",

@@ -2,9 +2,9 @@ import {
   Router,
 } from 'express'
 
-import users from 'services/api/users/router'
-import podcasts from 'services/api/podcasts/router'
-import requests from 'services/api/requests/router'
+import users from 'services/api/users'
+import podcasts from 'services/api/podcasts'
+import requests from 'services/api/requests'
 
 const router = Router()
 

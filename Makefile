@@ -44,6 +44,9 @@ stop: ##@pm2 Stop this application
 start: ##@pm2 Start this application
 	@$(NODE_MODULES_BIN)/pm2-dev start pm2.yml
 
+start-debug: ##@pm2 Start this application
+	@DEBUG=podcasteo:* DEBUG_HIDE_DATE=true DEBUG_COLORS=true $(NODE_MODULES_BIN)/pm2-dev start pm2.yml
+
 test: ##@test Test application
 	@make test-cs
 	@make test-unit

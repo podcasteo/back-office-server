@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import extend from 'lodash/extend'
+import assignIn from 'lodash/assignIn'
 
 import Schema from './schema'
 
@@ -22,7 +22,7 @@ function findByEmail(email) {
 function createUser(data) {
   const dbItem = Schema()
 
-  extend(dbItem, data)
+  assignIn(dbItem, data)
 
   return dbItem.save()
     .then(() => dbItem)
@@ -31,7 +31,7 @@ function createUser(data) {
 function updateUser(data) {
   const dbItem = Schema()
 
-  extend(dbItem, data)
+  assignIn(dbItem, data)
 
   return dbItem.save()
     .then(() => dbItem)

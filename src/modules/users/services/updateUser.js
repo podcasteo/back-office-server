@@ -1,4 +1,4 @@
-import extend from 'lodash'
+import assignIn from 'lodash/assignIn'
 
 import client from 'modules/users/client'
 
@@ -7,7 +7,7 @@ export default async function updateUser(id, data) {
 
   const itemDB = await client.findById(id)
 
-  extend(itemDB, data)
+  assignIn(itemDB, data)
 
   const result = await client.updateUser(itemDB)
 

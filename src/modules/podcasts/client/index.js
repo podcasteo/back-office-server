@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import extend from 'lodash/extend'
+import assignIn from 'lodash/assignIn'
 
 import Schema from './schema'
 
@@ -20,7 +20,7 @@ function findById(id) {
 function createPodcast(data) {
   const dbItem = Schema()
 
-  extend(dbItem, data)
+  assignIn(dbItem, data)
 
   return dbItem.save()
     .then(() => dbItem)
@@ -29,7 +29,7 @@ function createPodcast(data) {
 function updatePodcast(data) {
   const dbItem = Schema()
 
-  extend(dbItem, data)
+  assignIn(dbItem, data)
 
   return dbItem.save()
     .then(() => dbItem)

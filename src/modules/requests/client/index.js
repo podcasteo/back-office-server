@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import extend from 'lodash/extend'
+import assignIn from 'lodash/assignIn'
 
 import Schema from './schema'
 
@@ -16,7 +16,7 @@ function findById(id) {
 function createRequest(data) {
   const dbItem = Schema()
 
-  extend(dbItem, data)
+  assignIn(dbItem, data)
 
   return dbItem.save()
     .then(() => dbItem)
@@ -25,7 +25,7 @@ function createRequest(data) {
 function updateRequest(data) {
   const dbItem = Schema()
 
-  extend(dbItem, data)
+  assignIn(dbItem, data)
 
   return dbItem.save()
     .then(() => dbItem)

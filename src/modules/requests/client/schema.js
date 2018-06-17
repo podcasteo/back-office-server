@@ -30,7 +30,7 @@ const schema = new Schema({
   createdAt: {
     type: Date,
     required: false,
-    defaultsTo: new Date(),
+    default: new Date(),
   },
 })
 

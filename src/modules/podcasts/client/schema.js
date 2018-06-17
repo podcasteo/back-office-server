@@ -183,7 +183,7 @@ const schema = new Schema({
   createdDate: {
     type: Date,
     required: false,
-    defaultsTo: new Date(),
+    default: new Date(),
   },
   updatedDate: {
     type: Date,

@@ -11,12 +11,12 @@ const schema = new Schema({
   firstname: {
     type: String,
     required: false,
-    defaultsTo: 'Cloud',
+    default: 'Cloud',
   },
   lastname: {
     type: String,
     required: false,
-    defaultsTo: 'Strife',
+    default: 'Strife',
   },
   password: {
     type: String,
@@ -30,7 +30,7 @@ const schema = new Schema({
       'ADMIN',
       'SUPERADMIN',
     ],
-    defaultsTo: 'USER',
+    default: 'USER',
   },
 })
 

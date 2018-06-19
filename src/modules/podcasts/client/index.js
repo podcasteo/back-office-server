@@ -4,11 +4,13 @@ import assignIn from 'lodash/assignIn'
 import Schema from './schema'
 
 function find(query) {
-  const name = new RegExp(`^${query.name}`, 'i')
+  const search = {}
 
-  return Schema.find({
-    name,
-  }).exec()
+  if (query.name) {
+    search.name = new RegExp(`^${query.name}`, 'i')
+  }
+
+  return Schema.find(search).exec()
 }
 
 function findById(id) {

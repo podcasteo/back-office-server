@@ -3,8 +3,16 @@ import assignIn from 'lodash/assignIn'
 
 import Schema from './schema'
 
-function find(query) {
-  return Schema.find(query).exec()
+async function find(parameters, first, offset) {
+  const schema = Schema.find(parameters)
+  const query = schema.toConstructor()
+  const totalCount = await schema.count().exec()
+  const data = await query().limit(first).skip(offset).exec()
+
+  return {
+    totalCount,
+    data,
+  }
 }
 
 function findById(id) {

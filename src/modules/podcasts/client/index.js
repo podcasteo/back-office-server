@@ -3,23 +3,25 @@ import assignIn from 'lodash/assignIn'
 
 import Schema from './schema'
 
-function find(query) {
-  const search = {}
+async function find(parameters, first, offset) {
+  const schema = Schema.find(parameters)
+  const query = schema.toConstructor()
+  const totalCount = await schema.count().exec()
+  const data = await query().limit(first).skip(offset).exec()
 
-  if (query.name) {
-    search.name = new RegExp(`^${query.name}`, 'i')
+  return {
+    totalCount,
+    data,
   }
-
-  return Schema.find(search).exec()
 }
 
-function findById(id) {
+async function findById(id) {
   return Schema.findOne({
     _id: mongoose.Types.ObjectId(id),
   }).exec()
 }
 
-function createPodcast(data) {
+async function createPodcast(data) {
   const dbItem = Schema()
 
   assignIn(dbItem, data)
@@ -28,7 +30,7 @@ function createPodcast(data) {
     .then(() => dbItem)
 }
 
-function updatePodcast(data) {
+async function updatePodcast(data) {
   const dbItem = Schema()
 
   assignIn(dbItem, data)
@@ -37,7 +39,7 @@ function updatePodcast(data) {
     .then(() => dbItem)
 }
 
-function deletePodcast(id) {
+async function deletePodcast(id) {
   return Schema.findOneAndRemove({
     _id: mongoose.Types.ObjectId(id),
   }).exec()

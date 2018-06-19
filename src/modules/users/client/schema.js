@@ -8,6 +8,11 @@ const schema = new Schema({
     required: true,
     unique: true,
   },
+  username: {
+    type: String,
+    required: false,
+    default: 'Cloud',
+  },
   firstname: {
     type: String,
     required: false,

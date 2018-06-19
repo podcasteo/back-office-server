@@ -6,13 +6,13 @@ import sinon, {
 } from 'sinon'
 import sinonChai from 'sinon-chai'
 
-import find from 'modules/users/services/find'
-import client from 'modules/users/client'
-import userFixture from 'modules/users/fixtures/user'
+import find from 'modules/requests/services/find'
+import client from 'modules/requests/client'
+import requestFixture from 'modules/requests/fixtures/request'
 
 chai.use(sinonChai)
 
-describe('(User) find ::', () => {
+describe('(Requests) find ::', () => {
   let localSandbox
   let findStub
 
@@ -32,9 +32,8 @@ describe('(User) find ::', () => {
   it('should find user', () => {
     findStub.resolves({
       totalCount: 1,
-      data:
-      [
-        userFixture,
+      data: [
+        requestFixture,
       ],
     })
 

@@ -180,6 +180,10 @@ const schema = new Schema({
   isPodcasteo: {
     type: Boolean,
   },
+  isTraining: {
+    type: Boolean,
+    default: false,
+  },
   createdDate: {
     type: Date,
     required: false,

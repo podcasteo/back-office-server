@@ -1,10 +1,13 @@
 apps:
-  - script: ./src/index.js
-    name: 'back-office-server'
+  - script   : ./src/index.js
+    name     : 'back-office-server'
+    instances: 1
+    exec_mode: cluster
+    watch  : true
     ignore_watch :
-      - 'node_modules'
-      - 'build'
-      - 'documentation'
+      - './node_modules'
+      - './build'
+      - './documentation'
     watch:
-      - 'config'
-      - 'src'
+      - './config'
+      - './src'

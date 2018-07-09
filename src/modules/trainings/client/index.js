@@ -27,25 +27,13 @@ async function findByName(name) {
   }).exec()
 }
 
-async function findBySlug(slug) {
-  return Schema.findOne({
-    slug,
-  }).exec()
-}
-
-async function findByUuid(uuid) {
-  return Schema.findOne({
-    uuid,
-  }).exec()
-}
-
 async function findByProducer(producer) {
   return Schema.find({
     producer,
   }).exec()
 }
 
-async function createPodcast(data) {
+async function createTraining(data) {
   const dbItem = Schema()
 
   assignIn(dbItem, data)
@@ -54,18 +42,16 @@ async function createPodcast(data) {
     .then(() => dbItem)
 }
 
-async function updatePodcast(data) {
+async function updateTraining(data) {
   const dbItem = Schema()
 
   assignIn(dbItem, data)
-
-  dbItem.inProd = false
 
   return dbItem.save()
     .then(() => dbItem)
 }
 
-async function deletePodcast(id) {
+async function deleteTraining(id) {
   return Schema.findOneAndRemove({
     _id: mongoose.Types.ObjectId(id),
   }).exec()
@@ -75,10 +61,8 @@ export default {
   find,
   findById,
   findByName,
-  findBySlug,
   findByProducer,
-  findByUuid,
-  createPodcast,
-  updatePodcast,
-  deletePodcast,
+  createTraining,
+  updateTraining,
+  deleteTraining,
 }

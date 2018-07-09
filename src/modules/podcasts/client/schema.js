@@ -2,46 +2,112 @@ import mongoose, {
   Schema,
 } from 'mongoose'
 
-const schema = new Schema({
-  name: {
+import getSignedUrl from 'helpers/getSignedUrl'
+
+const providerDataSchema = new Schema({
+  date: {
+    type: Date,
+    required: true,
+  },
+  trackCount: {
+    type: Number,
+  },
+  lastRelease: {
+    type: Date,
+  },
+  ratingCount: {
+    type: Number,
+  },
+  frequency: {
+    type: Number,
+  },
+  followers: {
+    type: Number,
+  },
+})
+const providerSchema = new Schema({
+  url: {
     type: String,
     required: true,
   },
   slug: {
     type: String,
     required: true,
-    unique: true,
   },
+  data: [
+    providerDataSchema,
+  ],
+})
+const rankingSchema = new Schema({
+  date: {
+    type: Date,
+    required: true,
+  },
+  score: {
+    type: Number,
+  },
+  ranking: {
+    type: Number,
+  },
+  audienceScore: {
+    type: Number,
+  },
+  frequencyScore: {
+    type: Number,
+  },
+  networkScore: {
+    type: Number,
+  },
+  itunesScore: {
+    type: Number,
+  },
+  traineeScore: {
+    type: Number,
+  },
+  audienceGrade: {
+    type: String,
+  },
+  frequencyGrade: {
+    type: String,
+  },
+  networkGrade: {
+    type: String,
+  },
+  itunesGrade: {
+    type: String,
+  },
+  traineeGrade: {
+    type: String,
+  },
+})
+const schema = new Schema({
   uuid: {
     type: String,
     required: true,
     unique: true,
   },
-  email: {
+  name: {
     type: String,
     required: true,
+    unique: true,
   },
-  producers: {
-    type: [
-      String,
-    ],
+  slug: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  producer: {
+    type: String,
     required: true,
   },
   description: {
     type: String,
-    required: true,
-  },
-  logo: {
-    type: String,
-    required: false,
   },
   firstRelease: {
     type: Date,
-    required: false,
   },
   categorie: {
     type: String,
-    required: true,
     enum: [
       'games',
       'technology',
@@ -50,15 +116,15 @@ const schema = new Schema({
       'society',
       'sports',
       'food',
-      'personal',
+      'lifestyle',
       'comedy',
       'interview',
       'unclassifiable',
+      '',
     ],
   },
   region: {
     type: String,
-    required: true,
     enum: [
       'Auvergne-Rhône-Alpes',
       'Bourgogne-Franche-Comté',
@@ -83,115 +149,72 @@ const schema = new Schema({
       'Afrique',
       'Asie',
       'Océanie',
+      '',
     ],
-  },
-  woman: {
-    type: String,
-    required: true,
-    enum: [
-      'animation',
-      'columnist',
-      'none',
-    ],
-  },
-  itunes: {
-    type: new Schema({
-      url: {
-        type: String,
-        required: true,
-      },
-      id: {
-        type: String,
-        required: true,
-      },
-      data: [
-        {
-          date: {
-            type: Date,
-            required: true,
-          },
-          trackCount: {
-            type: Number,
-            required: true,
-          },
-          lastRelease: {
-            type: Date,
-            required: true,
-          },
-          ratingCount: {
-            type: Number,
-            required: true,
-          },
-          frequency: {
-            type: Number,
-            required: true,
-          },
-        },
-      ],
-    }),
-    required: false,
-  },
-  soundcloud: {
-    type: new Schema({
-      url: {
-        type: String,
-        required: true,
-      },
-      data: [
-        {
-          date: {
-            type: Date,
-            required: true,
-          },
-          trackCount: {
-            type: Number,
-            required: true,
-          },
-          followers: {
-            type: Number,
-            required: true,
-          },
-        },
-      ],
-    }),
-    required: false,
-  },
-  youtube: {
-    type: new Schema({
-      url: {
-        type: String,
-        required: true,
-      },
-      data: [
-        {
-          date: {
-            type: Date,
-            required: true,
-          },
-          followers: {
-            type: Number,
-            required: true,
-          },
-        },
-      ],
-    }),
-    required: false,
-  },
-  isPodcasteo: {
-    type: Boolean,
-  },
-  isTraining: {
-    type: Boolean,
-    default: false,
   },
   createdDate: {
     type: Date,
-    required: false,
-    default: new Date(),
   },
   updatedDate: {
     type: Date,
   },
+  isProd: {
+    type: Boolean,
+    default: false,
+  },
+  isInactif: {
+    type: Boolean,
+    default: false,
+  },
+  isPodcasteo: {
+    type: Boolean,
+    default: false,
+  },
+  haveWomen: {
+    type: Boolean,
+    default: false,
+  },
+  haveLeadWomen: {
+    type: Boolean,
+    default: false,
+  },
+  itunes: {
+    type: providerSchema,
+    required: false,
+  },
+  youtube: {
+    type: providerSchema,
+    required: false,
+  },
+  facebook: {
+    type: providerSchema,
+    required: false,
+  },
+  twitter: {
+    type: providerSchema,
+    required: false,
+  },
+  animateur: {
+    type: providerSchema,
+    required: false,
+  },
+  ranking: {
+    type: [
+      rankingSchema,
+    ],
+    required: false,
+  },
+})
+
+schema.virtual('avatar').get(function () { // eslint-disable-line
+  return getSignedUrl('podcasts', this.uuid)
+})
+
+schema.set('toObject', {
+  virtuals: true,
+})
+schema.set('toJSON', {
+  virtuals: true,
 })
 
 export default mongoose.model('Podcast', schema)

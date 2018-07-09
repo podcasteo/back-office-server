@@ -1,6 +1,6 @@
 import joi from 'joi'
 
-import client from 'modules/podcasts/client'
+import client from 'modules/trainings/client'
 import setPageInfo from 'helpers/setPageInfo'
 
 export default async function find(options = {}) {

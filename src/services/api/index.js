@@ -5,12 +5,14 @@ import {
 import users from 'services/api/users'
 import podcasts from 'services/api/podcasts'
 import requests from 'services/api/requests'
+import trainings from 'services/api/trainings'
 
 const router = Router()
 
 router.use('/users', users)
 router.use('/podcasts', podcasts)
 router.use('/requests', requests)
+router.use('/trainings', trainings)
 
 router.get('/', (req, res) => {
   res.send({

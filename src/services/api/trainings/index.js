@@ -45,12 +45,12 @@ async function deleteTraining(req, res) {
   return res.send(result)
 }
 
-async function createTrainingsFromCSV(req, res) {
+async function uploadTrainingsFromCSV(req, res) {
   const user = authentification.handleUser(req)
   const {
     file,
   } = req
-  const result = await services.createTrainingsFromCSV(file, user)
+  const result = await services.uploadTrainingsFromCSV(file, user)
 
   return res.send(result)
 }
@@ -72,7 +72,7 @@ router.get('/slug/:slug', getOne)
 router.put('/', createOrUpdateTraining)
 router.delete('/:id', deleteTraining)
 
-router.post('/csv/upload', upload.single('file'), createTrainingsFromCSV)
+router.post('/csv/upload', upload.single('file'), uploadTrainingsFromCSV)
 router.get('/csv/download', downloadTrainingsCSV)
 
 export default router

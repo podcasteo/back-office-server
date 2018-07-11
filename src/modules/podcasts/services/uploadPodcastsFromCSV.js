@@ -1,11 +1,13 @@
 import config from 'config'
+import assignIn from 'lodash/assignIn'
 import neatCSV from 'neat-csv'
 import uuidv4 from 'uuid/v4'
 import Debug from 'debug'
 
+import handleFirstDate from 'helpers/handleFirstDate'
 import client from 'modules/podcasts/client'
 
-const debug = Debug('podcasteo:bo:publishPodcastToProduction')
+const debug = Debug('podcasteo:bo:uploadPodcastsFromCSV')
 const categories = config.get('csv.categories')
 
 function mapCategorie(inputCategorie) {
@@ -56,7 +58,29 @@ async function createPodcast(podcastInput) {
       },
     }
 
-    await client.createPodcast(podcast)
+    podcast.firstRelease = new Date(handleFirstDate((new Date()).toISOString()))
+
+    if (podcastInput.age) {
+      podcast.firstRelease.setTime(podcast.firstRelease.getTime() - (podcastInput.age * 31556952000))
+    }
+
+    podcast.firstRelease = podcast.firstRelease.toISOString()
+
+    const findOne = await client.findByName(podcast.name)
+
+    if (!findOne) {
+      await client.createPodcast(podcast)
+    } else {
+      delete podcast.ranking
+      delete podcast.itunes
+      delete podcast.twitter
+      delete podcast.facebook
+      delete podcast.animateur
+
+      assignIn(findOne, podcast)
+
+      await client.updatePodcast(findOne)
+    }
 
     debug('createPodcast - done', podcast)
 
@@ -92,19 +116,19 @@ async function createPodcastsArray(podcasts) {
   }
 }
 
-export default async function createPodcastsFromCSV(file) {
+export default async function uploadPodcastsFromCSV(file) {
   const podcasts = await neatCSV(file.buffer)
 
   try {
     await createPodcastsArray(podcasts)
 
-    debug('createPodcastsFromCSV - done')
+    debug('uploadPodcastsFromCSV - done')
 
     return {
       result: true,
     }
   } catch (error) {
-    debug('createPodcastsFromCSV - fail', error)
+    debug('uploadPodcastsFromCSV - fail', error)
 
     return {
       result: false,

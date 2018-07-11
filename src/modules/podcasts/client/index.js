@@ -60,6 +60,7 @@ async function updatePodcast(data) {
   assignIn(dbItem, data)
 
   dbItem.inProd = false
+  delete dbItem.__v // eslint-disable-line
 
   return dbItem.save()
     .then(() => dbItem)

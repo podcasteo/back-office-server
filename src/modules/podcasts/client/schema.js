@@ -126,6 +126,7 @@ const schema = new Schema({
   region: {
     type: String,
     enum: [
+      'Alsace-Champagne-Ardennes-Lorraine',
       'Auvergne-Rhône-Alpes',
       'Bourgogne-Franche-Comté',
       'Bretagne',
@@ -142,6 +143,7 @@ const schema = new Schema({
       'Guadeloupe',
       'Guyane (française)',
       'Martinique',
+      'Languedoc',
       'La Réunion',
       'Mayotte',
       'Europe',

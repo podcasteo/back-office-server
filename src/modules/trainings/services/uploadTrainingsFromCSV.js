@@ -3,7 +3,7 @@ import Debug from 'debug'
 
 import client from 'modules/trainings/client'
 
-const debug = Debug('podcasteo:bo:publishPodcastToProduction')
+const debug = Debug('podcasteo:bo:uploadTrainingsFromCSV')
 
 async function createTraining(trainingInput) {
   try {
@@ -56,7 +56,7 @@ async function createTrainingsArray(trainings) {
   }
 }
 
-export default async function createTrainingsFromCSV(file) {
+export default async function uploadTrainingsFromCSV(file) {
   const trainings = await neatCSV(file.buffer, {
     separator: '\t', // specify optional cell separator
   })
@@ -64,13 +64,13 @@ export default async function createTrainingsFromCSV(file) {
   try {
     await createTrainingsArray(trainings)
 
-    debug('createTrainingsFromCSV - done')
+    debug('uploadTrainingsFromCSV - done')
 
     return {
       result: true,
     }
   } catch (error) {
-    debug('createTrainingsFromCSV - fail', error)
+    debug('uploadTrainingsFromCSV - fail', error)
 
     return {
       result: false,

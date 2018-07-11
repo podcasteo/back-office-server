@@ -2,7 +2,7 @@ import assignIn from 'lodash/assignIn'
 
 import client from 'modules/trainings/client'
 
-export default async function updatePodcast(id, data) {
+export default async function updateTraining(id, data) {
   const itemDB = await client.findById(id)
 
   assignIn(itemDB, data)

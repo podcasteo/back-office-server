@@ -5,7 +5,7 @@ import {
 
 import client from 'modules/trainings/client'
 
-const debug = Debug('podcasteo:bo:publishPodcastToProduction')
+const debug = Debug('podcasteo:bo:downloadTrainingsCSV')
 const fields = [
   {
     label: 'Podcast',

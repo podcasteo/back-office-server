@@ -45,12 +45,32 @@ async function deletePodcast(req, res) {
   return res.send(result)
 }
 
-async function createPodcastsFromCSV(req, res) {
+async function uploadPodcastsFromCSV(req, res) {
   const user = authentification.handleUser(req)
   const {
     file,
   } = req
-  const result = await services.createPodcastsFromCSV(file, user)
+  const result = await services.uploadPodcastsFromCSV(file, user)
+
+  return res.send(result)
+}
+
+async function uploadRankingsFromCSV(req, res) {
+  const user = authentification.handleUser(req)
+  const {
+    file,
+  } = req
+  const result = await services.uploadRankingsFromCSV(req.params.date, file, user)
+
+  return res.send(result)
+}
+
+async function uploadProvidersFromCSV(req, res) {
+  const user = authentification.handleUser(req)
+  const {
+    file,
+  } = req
+  const result = await services.uploadProvidersFromCSV(req.params.date, file, user)
 
   return res.send(result)
 }
@@ -66,10 +86,32 @@ async function uploadPodcastAvatar(req, res) {
 }
 
 async function publishPodcastToProduction(req, res) {
+  const {
+    query,
+  } = req
   const user = authentification.handleUser(req)
-  const result = await services.publishPodcastToProduction(user)
+  const result = await services.publishPodcastToProduction(query, user)
 
   return res.send(result)
+}
+
+async function uploadDataikuFromCSV(req, res) {
+  const user = authentification.handleUser(req)
+  const {
+    file,
+  } = req
+  const result = await services.uploadDataikuFromCSV(req.params.date, file, user)
+
+  return res.send(result)
+}
+
+async function downloadDataikuCSV(req, res) {
+  const user = authentification.handleUser(req)
+  const result = await services.downloadDataikuCSV(req.params.date, user)
+
+  res.setHeader('Content-disposition', 'attachment; filename=trainings.tsv')
+  res.set('Content-Type', 'text/tsv')
+  res.status(200).send(result)
 }
 
 router.get('/', getAll)
@@ -81,7 +123,11 @@ router.put('/', createOrUpdatePodcast)
 router.delete('/:id', deletePodcast)
 
 router.post('/avatar/:uuid', upload.single('file'), uploadPodcastAvatar)
-router.post('/csv/upload/init', upload.single('file'), createPodcastsFromCSV)
+router.post('/csv/upload/init', upload.single('file'), uploadPodcastsFromCSV)
+router.post('/csv/upload/rankings/:date', upload.single('file'), uploadRankingsFromCSV)
+router.post('/csv/upload/providers/:date', upload.single('file'), uploadProvidersFromCSV)
+router.post('/csv/upload/dataiku/:date', upload.single('file'), uploadDataikuFromCSV)
+router.get('/csv/download/dataiku/:date', downloadDataikuCSV)
 
 router.post('/publish', publishPodcastToProduction)
 

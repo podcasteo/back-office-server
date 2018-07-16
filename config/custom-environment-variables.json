@@ -11,6 +11,9 @@
       "api_secret": "CLOUDINARY_API_SECRET"
     }
   },
+  "jwt": {
+    "secretKey": "JWT_SECRET_KEY"
+  },
   "api": {
     "url": "PODCASTEO_API_URL",
     "user": {

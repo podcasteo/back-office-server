@@ -1,8 +1,9 @@
 apps:
   - script   : ./src/index.js
     name     : 'back-office-server'
-    instances: 1
+    instances: 4
     exec_mode: cluster
+    merge_logs: true
     watch  : true
     ignore_watch :
       - './node_modules'

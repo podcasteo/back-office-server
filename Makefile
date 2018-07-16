@@ -33,19 +33,19 @@ commitlint: ##@lint Lint commit message with commitlint package
 	@$(NODE_MODULES_BIN)/commitlint -e $$GIT_PARAMS
 
 delete: ##@pm2 Delete this application
-	@pm2 delete pm2.yml
+	@$(NODE_MODULES_BIN)/pm2 delete pm2.yml
 
 restart: ##@pm2 Retart pm2 apps
-	@pm2 restart pm2.yml
+	@$(NODE_MODULES_BIN)/pm2 restart pm2.yml
 
 stop: ##@pm2 Stop this application
-	@pm2 stop pm2.yml
+	@$(NODE_MODULES_BIN)/pm2 stop pm2.yml
 
 start: ##@pm2 Start this application
-	@pm2 start pm2.yml
+	@$(NODE_MODULES_BIN)/pm2 start pm2.yml
 
 start-debug: ##@pm2 Start this application
-	@DEBUG=podcasteo:* DEBUG_HIDE_DATE=true DEBUG_COLORS=true pm2-runtime start pm2.yml
+	@DEBUG=podcasteo:* DEBUG_HIDE_DATE=true DEBUG_COLORS=true $(NODE_MODULES_BIN)/pm2-runtime start pm2.yml
 
 test: ##@test Test application
 	@make test-cs

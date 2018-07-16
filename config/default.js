@@ -9,17 +9,11 @@ module.exports = {
     secretKey: 'secretkey',
     expiresIn: '60d',
   },
-  aws: {
+  cloudinary: {
     config: {
-      accessKeyId: 'nothingtosee',
-      secretAccessKey: 'nothingtosee',
-      region: 'eu-west-3',
-    },
-    s3: {
-      region: 'eu-west-3',
-      params: {
-        Bucket: 'podcasteo',
-      },
+      cloud_name: 'podcasteo',
+      api_key: 'apikey',
+      api_secret: 'apisecret',
     },
   },
   api: {

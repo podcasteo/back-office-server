@@ -2,7 +2,7 @@ import mongoose, {
   Schema,
 } from 'mongoose'
 
-import getSignedUrl from 'helpers/getSignedUrl'
+import getAvatar from 'helpers/getAvatar'
 
 const providerDataSchema = new Schema({
   date: {
@@ -209,7 +209,7 @@ const schema = new Schema({
 })
 
 schema.virtual('avatar').get(function () { // eslint-disable-line
-  return getSignedUrl('podcasts', this.uuid)
+  return getAvatar('podcasts', this.slug)
 })
 
 schema.set('toObject', {

@@ -5,10 +5,10 @@
   "mongo": {
     "url": "MONGO_DATABASE_URL"
   },
-  "aws": {
+  "cloudinary": {
     "config": {
-      "accessKeyId": "AWS_ACCESS_KEY_ID",
-      "secretAccessKey": "AWS_SECRET_ACCESS_KEY"
+      "api_key": "CLOUDINARY_API_KEY",
+      "api_secret": "CLOUDINARY_API_SECRET"
     }
   },
   "api": {

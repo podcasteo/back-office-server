@@ -1,18 +1,25 @@
-import path from 'path'
+import assignIn from 'lodash/assignIn'
 
-import s3Bucket from 'clients/aws'
+import uploadAvatar from 'helpers/uploadAvatar'
 import client from 'modules/podcasts/client'
 
 export default async function uploadPodcastAvatar(uuid, file) {
-  const podcast = await client.findByUuid(uuid)
-  const uri = path.join('podcasts', uuid, 'avatar', 'default.jpg')
   const stream = file.buffer
 
-  await s3Bucket.upload({
-    Key: uri,
-    Body: stream,
-    ContentType: 'image/jpeg',
-  }).promise()
+  try {
+    const podcast = await client.findByUuid(uuid)
+    const result = await uploadAvatar('podcasts', podcast.slug, stream)
 
-  return podcast
+    assignIn(podcast, {
+      avatar: result.url,
+    })
+
+    await client.updatePodcast(podcast)
+
+    return client.findByUuid(uuid)
+  } catch (error) {
+    console.log(error) // eslint-disable-line
+
+    throw new Error('avatar upload failed')
+  }
 }

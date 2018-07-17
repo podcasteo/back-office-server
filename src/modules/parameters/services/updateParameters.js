@@ -3,7 +3,11 @@ import assignIn from 'lodash/assignIn'
 import client from 'modules/parameters/client'
 
 export default async function updateParameters(data) {
-  const itemDB = await client.find()
+  let itemDB = await client.find()
+
+  if (!itemDB) {
+    itemDB = {}
+  }
 
   assignIn(itemDB, data)
 
